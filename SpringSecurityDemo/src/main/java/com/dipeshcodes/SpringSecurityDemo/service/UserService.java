@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService {
 
@@ -17,5 +19,9 @@ public class UserService {
     public User registerUser(User user){
         user.setPassword(bcrypt.encode(user.getPassword()));
         return userRepo.save(user);
+    }
+
+    public List<User> getAllUser() {
+        return userRepo.findAll();
     }
 }

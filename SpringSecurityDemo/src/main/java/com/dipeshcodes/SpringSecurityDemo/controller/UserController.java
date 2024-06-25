@@ -11,12 +11,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 public class UserController {
 
     @Autowired
     private UserService userService;
 
+    @GetMapping("/users")
+    public List<User> getAllUser(){
+        return userService.getAllUser();
+    }
     @GetMapping("/")
     public String dashboard(HttpServletRequest req){
         System.out.println(req.getSession().getId());
@@ -29,9 +35,9 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String addUser(@RequestBody User user){
+    public String addUser(@RequestBody User user) {
         User addedUser = userService.registerUser(user);
-        return "user added: "+addedUser;
+        return "user added: " + addedUser;
     }
 
 
