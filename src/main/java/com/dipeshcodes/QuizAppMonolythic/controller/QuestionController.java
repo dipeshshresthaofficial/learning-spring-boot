@@ -2,10 +2,10 @@ package com.dipeshcodes.QuizAppMonolythic.controller;
 
 import com.dipeshcodes.QuizAppMonolythic.model.Question;
 import com.dipeshcodes.QuizAppMonolythic.service.QuestionService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,8 +17,13 @@ public class QuestionController {
     private QuestionService questionService;
 
     @GetMapping("all")
-    private List<Question> getAllQuestion(){
+    private ResponseEntity<List<Question>> getAllQuestion(){
         return questionService.getAllQuestion();
+    }
+
+    @PostMapping("add")
+    private String addQuestion(@RequestBody Question question){
+        return questionService.addQuestion(question);
     }
 
 
