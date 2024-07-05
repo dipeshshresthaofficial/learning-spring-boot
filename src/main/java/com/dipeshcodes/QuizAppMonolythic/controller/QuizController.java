@@ -1,6 +1,7 @@
 package com.dipeshcodes.QuizAppMonolythic.controller;
 
 import com.dipeshcodes.QuizAppMonolythic.model.Question;
+import com.dipeshcodes.QuizAppMonolythic.model.QuestionWrapper;
 import com.dipeshcodes.QuizAppMonolythic.model.Quiz;
 import com.dipeshcodes.QuizAppMonolythic.service.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class QuizController {
 
     // When user wants to attempt a quiz
     @GetMapping("{id}")
-    private ResponseEntity<List<Question>> getQuizQuestions(@PathVariable Integer id){
+    private ResponseEntity<List<QuestionWrapper>> getQuizQuestions(@PathVariable Integer id){
         return quizService.getQuizQuestions(id);
     }
 }
