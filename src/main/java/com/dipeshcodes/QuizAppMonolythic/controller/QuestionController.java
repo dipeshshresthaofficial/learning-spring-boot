@@ -22,7 +22,7 @@ public class QuestionController {
     }
 
     @PostMapping("add")
-    private String addQuestion(@RequestBody Question question){
+    private ResponseEntity<Question> addQuestion(@RequestBody Question question){
         return questionService.addQuestion(question);
     }
 

@@ -19,8 +19,7 @@ public class QuestionService {
         return new ResponseEntity<>(questionDao.findAll(), HttpStatus.OK);
     }
 
-    public String addQuestion(Question question) {
-        questionDao.save(question);
-        return "Success";
+    public ResponseEntity<Question> addQuestion(Question question) {
+        return new ResponseEntity<>(questionDao.save(question),HttpStatus.CREATED);
     }
 }
