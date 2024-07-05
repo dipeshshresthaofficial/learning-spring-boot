@@ -32,6 +32,7 @@ public class QuestionService {
         } catch (Exception e){
             e.printStackTrace();
         }
+        //returning empty object and bad request http code if something goes wrong.
         return new ResponseEntity<>(new Question(), HttpStatus.BAD_REQUEST);
     }
 
@@ -45,6 +46,7 @@ public class QuestionService {
         } catch (Exception e){
             e.printStackTrace();
         }
+        //returning empty array and bad request http code if something goes wrong.
         return new ResponseEntity<>(new ArrayList<>(), HttpStatus.BAD_REQUEST);
     }
 }
