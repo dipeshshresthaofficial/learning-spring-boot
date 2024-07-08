@@ -5,14 +5,14 @@ import com.dipeshcodes.QuizAppMonolythic.dao.QuizDao;
 import com.dipeshcodes.QuizAppMonolythic.model.Question;
 import com.dipeshcodes.QuizAppMonolythic.model.QuestionWrapper;
 import com.dipeshcodes.QuizAppMonolythic.model.Quiz;
+import com.dipeshcodes.QuizAppMonolythic.model.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import javax.swing.text.html.Option;
+import java.util.*;
 
 @Service
 public class QuizService {
@@ -51,5 +51,27 @@ public class QuizService {
             }
         }
         return new ResponseEntity<>(new ArrayList<>(), HttpStatus.BAD_REQUEST);
+    }
+
+    public ResponseEntity<Integer> calculateScore(Integer queId, ArrayList<Response> responses) {
+        Optional<Quiz> quizRef = quizDao.findById(queId);
+        if(quizRef != null){
+            Integer points = 0;
+            Quiz quiz = quizRef.get();
+            List<Question> questions = quiz.getQuestions();
+            Map<Integer, String> questionAnswerMap= new HashMap<>();
+            for(Question question: questions){
+                questionAnswerMap.put(question.getId(),question.getRightAnswer());
+            }
+
+            for(Response res: responses){
+                String correctAnswer = questionAnswerMap.get(res.getQuesId());
+                if(correctAnswer != null && correctAnswer.equals(res.getAnswer())){
+                    points++;
+                }
+            }
+            return new ResponseEntity<>(points, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(0, HttpStatus.BAD_REQUEST);
     }
 }
