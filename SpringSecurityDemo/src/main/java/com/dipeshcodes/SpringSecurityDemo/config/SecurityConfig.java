@@ -35,8 +35,12 @@ public class SecurityConfig {
 
         // disable csrf
         http.csrf(customizer -> customizer.disable());
+
         // add authentication
-        http.authorizeHttpRequests(request -> request.anyRequest().authenticated());
+        // except for "/register" disabling login requirement for registration
+        http.authorizeHttpRequests(request -> request.requestMatchers("register")
+                .permitAll()
+                .anyRequest().authenticated());
 
         // add login form
 //        http.formLogin(Customizer.withDefaults());
